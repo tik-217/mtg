@@ -16,6 +16,10 @@ export interface IReviewsProps {
   reviewsPrepare: IReviewsData[];
 }
 
+export interface IHeaderProps {
+  reviewsLang: string;
+}
+
 export interface IPaginationProps {
   page: number;
   maxPage: number;
@@ -27,4 +31,5 @@ export interface IInitialState {
   limit: number;
   reviewsPrepare: IReviewsData[];
   maxPage: number;
+  reviewsLang: string;
 }

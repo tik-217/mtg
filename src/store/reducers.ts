@@ -18,6 +18,9 @@ const reducers = createSlice({
     setMaxPage(state, action: PayloadAction<number>) {
       state.maxPage = action.payload;
     },
+    setReviewsLang(state, action: PayloadAction<string>) {
+      state.reviewsLang = action.payload;
+    },
   },
 });
 

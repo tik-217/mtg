@@ -33,6 +33,8 @@ class Reviews extends Component<IReviewsProps> {
 
     const limitReviews = this.props.reviewsPrepare.slice(startSlice, endSlice);
 
+    console.log(limitReviews);
+
     return (
       <div className="reviews">
         <h1>Reviews</h1>

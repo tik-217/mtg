@@ -10,7 +10,30 @@ import Watch from "./Watch";
 // styles
 import "@/styles/Header.css";
 
-export default class Header extends Component {
+// services
+import reviews from "@/services/data.json";
+
+// types
+import { IHeaderProps, IInitialState, IReviewsData } from "@/types";
+
+// store
+import store from "@/store/store";
+import { setReviewsPrepare } from "@/store/reducers";
+import { connect } from "react-redux";
+
+class Header extends Component<IHeaderProps> {
+  changeLang(typeLang: string) {
+    let reviewsArr: IReviewsData[] = [];
+
+    if (typeLang === "ru") {
+      reviewsArr = Object.values(reviews.ru);
+    } else if (typeLang === "en") {
+      reviewsArr = Object.values(reviews.en);
+    }
+
+    store.dispatch(setReviewsPrepare(reviewsArr));
+  }
+
   render(): ReactNode {
     return (
       <header className="header">
@@ -22,8 +45,8 @@ export default class Header extends Component {
               className="header__langImage"
             />
             <ul className="header__langList">
-              <li>RU</li>
-              <li>EN</li>
+              <li onClick={() => this.changeLang("ru")}>RU</li>
+              <li onClick={() => this.changeLang("en")}>EN</li>
             </ul>
           </div>
           <Watch />
@@ -32,3 +55,11 @@ export default class Header extends Component {
     );
   }
 }
+
+function mapStateToProps(state: IInitialState) {
+  return {
+    reviewsLang: state.reviewsLang,
+  };
+}
+
+export default connect(mapStateToProps, null)(Header);
