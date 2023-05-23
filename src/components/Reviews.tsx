@@ -21,9 +21,19 @@ import { connect } from "react-redux";
 class Reviews extends Component<IReviewsProps> {
   componentDidMount(): void {
     const reviewsArr = Object.values(reviews.ru);
-    const maxPagePrepare = Math.ceil(reviewsArr.length / this.props.limit);
+    this.paginMaxPage();
 
     store.dispatch(setReviewsPrepare(reviewsArr));
+  }
+
+  componentDidUpdate(): void {
+    this.paginMaxPage();
+  }
+
+  paginMaxPage() {
+    const maxPagePrepare = Math.ceil(
+      this.props.reviewsPrepare.length / this.props.limit
+    );
     store.dispatch(setMaxPage(maxPagePrepare));
   }
 
@@ -32,8 +42,6 @@ class Reviews extends Component<IReviewsProps> {
     const endSlice = this.props.limit * this.props.page;
 
     const limitReviews = this.props.reviewsPrepare.slice(startSlice, endSlice);
-
-    console.log(limitReviews);
 
     return (
       <div className="reviews">
